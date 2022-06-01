@@ -6,7 +6,11 @@
   --paragraph: hsl(210, 9%, 31%);
   --brand-beige:hsl(39,100%,97%);
   --brand-light:hsl(148,23%,89%);
+  --bg-light:hsl(180, 14%, 97%);
   --nav-height:7.2rem;
+}
+html{
+  scroll-behavior: smooth; /*deixa o scroll suave para usar como link do href*/
 }
 html,body{
   width: 100%;
@@ -22,6 +26,7 @@ body{
   font-size: 1.6rem;
   text-align: center;
   overflow: overlay;
+  background: var(--bg-light);
 }
 .wrapper{
   width: 37.5rem;
@@ -29,15 +34,85 @@ body{
   padding-inline: 2.4rem;
 
 }
+img{
+  max-width: 100%;
+}
 ul{
   list-style: none;
 }
-/*==========================HEADER=================================================*/
-
-header{
-  margin-top:calc(4.1rem + var(--nav-height));
+section{
+  padding-block: 10rem;
+ 
 }
-header::before{
+section header h4{
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  margin-bottom: 1.6rem;
+  font-weight: 700;
+  line-height: 150%;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+
+
+}
+section header h2{
+  font-size: 3rem;
+  line-height: 3.9rem;
+  color: var(--headline);
+  margin-bottom: 6rem;
+
+}
+section header h1{
+  font-size: 3.4rem;
+  color:var(--headline);
+  line-height: 130%;
+  margin-bottom: 2.4rem;
+
+}
+section .content p{
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 150%;
+  color: var(--paragraph);
+}
+/*==========================NAVIGATION=================================================*/
+nav{
+  width: 100vw;
+  display: flex;
+  height: var(--nav-height);
+  position: fixed;
+  top:0;
+  z-index: 100;
+}
+nav .wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav.scroll{
+  background: var(--primary-color);
+ 
+
+}
+nav.scroll .logo path{ /*nth é o filho da classe svg, no caso ele esta pegando o primeiro filho de svg do path*/
+  fill:white;
+ 
+}
+nav.scroll button path{ /*ele esta pegando o valor do path do button*/
+  stroke: white;
+}
+nav button{
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+/*==========================HOME=================================================*/
+
+#home{
+  padding-top:calc(4.1rem + var(--nav-height));
+}
+#home::before{ /*before é o que acontece antes do conteudo do header.*/
   content: "";
   width: 100%;
   height: calc(108rem + var(--nav-height));
@@ -49,25 +124,14 @@ header::before{
   z-index: -1;
 }
 
-header h4{
-  font-size: 1.4rem;
-  color: var(--primary-color);
-  margin-bottom: 1.6rem;
-}
-header h1{
-  font-size: 3.4rem;
-  color:var(--headline);
-  line-height: 130%;
-  margin-bottom: 2.4rem;
-}
-header p{
+#home p{
   font-size: 1.8rem;
   color:var(--paragraph);
   font-weight: 400;
   line-height: 150%;
   margin-bottom: 3.2rem;
 }
-header button{
+#home button{
   background: var(--primary-color);
   border: none;
   border-radius: 4rem;
@@ -85,14 +149,14 @@ header button{
   font-weight: 700;
 
 }
-header img{
+#home img{
   width: 26.4rem;
   display: block;
   margin-inline: auto;
   object-position: 0 2rem;
 }
 
-.stats{
+#home .stats{
   width: 32.7rem;
   padding-block: 4rem;/*padding emcima e embaixo*/
   margin-inline: auto; /*margin esquerda e direita auto */
@@ -106,56 +170,27 @@ header img{
   border-radius: 0.6rem;
 }
 
-.stat h3{
+#home .stat h3{
   font-size: 4.8rem;
   line-height: 130%;
   margin-bottom: 0.4rem;
   color: var(--headline);
 }
-.stat p{
+#home .stat p{
   margin: 0;
   color: var(--primary-color);
   line-height: 150%;
   font-size: 1.6rem;
 }
 
-/*==========================NAVIGATION=================================================*/
-nav{
-  display: flex;
-  height: var(--nav-height);
-  position: fixed;
-  top:0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-nav .wrapper{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-nav.scroll{
-  background: var(--primary-color);
-  width: 100vw;
-
-}
-nav.scroll svg:nth-child(1) path{
-  fill:white;
- 
-}
-nav.scroll button path{
-  stroke: white;
-}
-nav button{
-  background: none;
-  border: none;
-  cursor: pointer;
-}
 /*==========================MENU-EXPANDED=================================================*/
+.menu{
+  transform: translateY(100%);
+}
 body.menu-expanded{
   overflow: hidden;
 }
-.menu,.close-menu, body.menu-expanded .open-menu{
+.menu,.close-menu, body.menu-expanded .open-menu{ /*ele esta pegando as classe e deixando invisivel*/
   opacity: 0;
   visibility: hidden;
 }
@@ -163,8 +198,8 @@ body.menu-expanded .menu, body.menu-expanded .close-menu{
   opacity: 1;
   visibility: visible;
 }
-body.menu-expanded > :not(nav){
-  display: none;
+body.menu-expanded > :not(nav){ /*ele esta dando um display none em todas as classes filha de menu-expanded, menos a classe nav*/
+  visibility: hidden;
 }
 body.menu-expanded .menu{
   position: fixed;
@@ -174,6 +209,8 @@ body.menu-expanded .menu{
   width: 100vw;
   height: 100vh;
   padding-top: var(--nav-height);
+  transform: translateY(0);
+  transition: transform 300ms;
 }
 body.menu-expanded nav{
   position: relative;
@@ -227,6 +264,45 @@ padding: 1.6rem 3.2rem;
 margin-top: 4.8rem;
 margin-bottom: 8rem;
 }
+
+
+/*==========================SERVICES=================================================*/
+#services header h2{
+  margin-bottom: 6rem;
+}
+#services .cards{
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+
+
+}
+#services .card{
+  padding: 2.4rem;
+  background: #FFFFFF;
+  border: 1px solid var(--brand-light);
+  border-radius: 0.6rem;
+  text-align: left;
+  
+}
+#services .card h3{
+  margin-block: 1.6rem;
+}
+
+/*==========================ABOUT=================================================*/
+#about{
+  text-align: left;
+  background: var(--brand-beige);
+}
+#about header h2{
+  margin-bottom: 2.4rem;
+}
+#about .content p{
+  margin-top: 2.4rem;
+  margin-bottom: 6rem;
+ 
+}
+
 
 
 
