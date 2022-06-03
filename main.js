@@ -1,9 +1,12 @@
+var navigation = document.getElementById('navigation')
+var backToTopButton = document.getElementById('backToTopButton')
 window.addEventListener('scroll', onScroll)
-onScroll()
+
 function onScroll() {
   showNavOnScroll()
   showBackToTopButtonOnScroll()
 }
+
 function showNavOnScroll() {
   if (scrollY > 0) {
     navigation.classList.add('scroll')

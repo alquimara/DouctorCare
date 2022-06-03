@@ -6,7 +6,7 @@
   --headline:hsl(210, 11%, 15%);
   --paragraph: hsl(210, 9%, 31%);
   --brand-beige:hsl(39,100%,97%);
-  --brand-light:hsl(calc(var(--hue) -22),23%,89%);/*170 cor primaria - 148cor atual do brand= cor final 22*/
+  --brand-light:hsl(268,23%,89%);/*170 cor primaria - 148cor atual do brand= cor final 22*/
   --brand-dark:hsl(var(--hue), 100%, 14%);
   --bg-light:hsl(180, 14%, 97%);
   --nav-height:7.2rem;
@@ -105,27 +105,27 @@ section .content p{
   gap:3.2rem;
 }
 /*==========================CUSTOM-COLOR=================================================*/
-
-#services .cards .card svg path{
-  fill: none;
+#services .card circle{
   fill: var(--brand-light);
+}
+button.open-menu path[stroke="#00856F"], #contacts li path, #services .card path{
+  stroke: var(--primary-color);
 }
 #navigation .logo path[fill*="#00856F"]/*ele esta pegando no svg o fill de cor x, e mudando todos os fill para a nova cor.*/,#backToTopButton circle{
   fill: var(--primary-color);
 }
-#navigation.scroll .logo path[fill*="#00856F"]{
-  fill: #fff;
-}
-button.open-menu path[stroke*="#00856F"], #contacts li path{
-  stroke: var(--primary-color);
+body.menu-expanded #navigation .logo path, #navigation.scroll .logo path{
+  fill:#fff;
+  
 }
 #navigation.scroll button.open-menu path[stroke*="#00856F"]{
   stroke: #fff;
+}
 
-}
-#services .card circle{
-  fill: var(--brand-light);
-}
+
+
+
+
 
 
 /*==========================NAVIGATION=================================================*/
@@ -144,16 +144,9 @@ nav .wrapper{
 }
 
 nav.scroll{
-  background: var(--primary-color);
+  background:var(--primary-color)
  
 
-}
-nav.scroll .logo path{ /*nth é o filho da classe svg, no caso ele esta pegando o primeiro filho de svg do path*/
-  fill:white;
- 
-}
-nav.scroll button path{ /*ele esta pegando o valor do path do button*/
-  stroke: white;
 }
 nav button{
   background: none;
@@ -225,7 +218,12 @@ nav button{
 
 /*==========================MENU-EXPANDED=================================================*/
 .menu{
-  transform: translateY(100%);
+  transform: translateX(100%);
+}
+
+body.menu-expanded.close-menu{
+  transform: translateX(-100%);
+
 }
 body.menu-expanded{
   overflow: hidden;
@@ -249,19 +247,16 @@ body.menu-expanded .menu{
   width: 100vw;
   height: 100vh;
   padding-top: var(--nav-height);
-  transform: translateY(0);
+  transform: translateX(0);
   transition: transform 300ms;
 }
-body.menu-expanded nav{
-  position: relative;
-}
+
 body.menu-expanded .logo, body.menu-expanded button{
   position: relative;
   z-index: 100;
 }
 body.menu-expanded .logo path{
   fill: #fff;
-  stroke: #fff;
 }
 body.menu-expanded .button path{
   stroke: #fff;
