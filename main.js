@@ -1,10 +1,13 @@
-var navigation = document.getElementById('navigation')
-var backToTopButton = document.getElementById('backToTopButton')
+let navigation = document.getElementById('navigation')
+let backToTopButton = document.getElementById('backToTopButton')
 window.addEventListener('scroll', onScroll)
 
 function onScroll() {
   showNavOnScroll()
   showBackToTopButtonOnScroll()
+  activeMenuAtCurrentSection(home)
+  activeMenuAtCurrentSection(services)
+  activeMenuAtCurrentSection(about)
 }
 
 function showNavOnScroll() {
@@ -12,6 +15,26 @@ function showNavOnScroll() {
     navigation.classList.add('scroll')
   } else {
     navigation.classList.remove('scroll')
+  }
+}
+function activeMenuAtCurrentSection(section) {
+  const targetLine = scrollY + innerHeight / 2 /*onde inicia o home*/
+  const sectionTop = section.offsetTop /*altura inteira do home*/
+  const sectionHeight = section.offsetHeight
+  // o topop da secao chegou ou ultrapasou a linha do alvo
+  const sectionTopReachOrPassedTargetLine = targetLine >= sectionTop
+  //onde a secao termina
+  const sectionEndsAt = sectionTop + sectionHeight
+  const sectionEndPassedTargetline = sectionEndsAt <= targetLine
+  const sectionBoundaries =
+    sectionTopReachOrPassedTargetLine && !sectionEndPassedTargetline
+  const sectionId = section.getAttribute('id')
+  const menuElement = document.querySelector(`.menu a[href*=${sectionId}]`)
+
+  menuElement.classList.remove('active')
+  if (sectionBoundaries) {
+    // verifica se eu estou na secão.
+    menuElement.classList.add('active')
   }
 }
 function showBackToTopButtonOnScroll() {
